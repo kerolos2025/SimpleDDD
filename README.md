@@ -1,14 +1,31 @@
-# Migration Guide for Multi-Layer .NET Application
+# Simple Way to Add Migration and Update Database (Multi-Layer App)
 
-Simple steps to add migrations and update database in a DDD/Clean Architecture project.
+## 1) Install NuGet Package in API Project
 
----
+```xml
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.15" />
+```
 
-## Prerequisites
-
-### 1. Install EF Core Design Package in API (Startup Project)
-
-Add this NuGet package to your **API project** (the startup project):
+## 2) Install EF Core CLI Tool
 
 ```bash
-dotnet add API/API.csproj package Microsoft.EntityFrameworkCore.Design --version 9.0.15
+dotnet tool install --global dotnet-ef --version 9.0.15
+```
+
+## 3) Add Migration
+
+```bash
+dotnet ef migrations add modifytables --project Infrastructure/Infrastructure.csproj --startup-project API/API.csproj
+```
+
+## 4) Update Database
+
+```bash
+dotnet ef database update --project Infrastructure/Infrastructure.csproj --startup-project API/API.csproj
+```
+
+## Notes
+
+* `--project` points to the project that contains `DbContext` and migrations.
+* `--startup-project` points to the runnable project (API).
+* Replace `modifytables` with your migration name.
