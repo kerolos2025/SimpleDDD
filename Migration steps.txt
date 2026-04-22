@@ -1,0 +1,12 @@
+this is the simple way to add migration and update database with multy layer app 
+
+1) must install this nuget at api 
+
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.15" />
+
+
+2) dotnet tool install --global dotnet-ef --version 9.0.15
+
+3) dotnet ef migrations add modifytables --project Infrastructure/Infrastructure.csproj --startup-project API/API.csproj
+
+4) dotnet ef database update --project Infrastructure/Infrastructure.csproj --startup-project API/API.csproj
